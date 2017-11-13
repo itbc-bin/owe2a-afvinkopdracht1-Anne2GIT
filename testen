@@ -1,0 +1,38 @@
+TEST1
+
+omschrijving: Het programma starten zonder dat het bestand aanwezig is
+verwacht resultaat: nette afhandeling error met melding dat het bestand afwezig is
+pass/fail:  
+opmerkingen: 
+
+
+TEST2
+
+omschrijving: Het bestand is in ongeldig formaat.
+verwacht resultaat: nette afhandeling error met melding dat het bestand een ongeldig formaat heeft.
+pass/fail: 
+opmerkingen:
+
+
+TEST3
+
+omschrijving: de functie is_dna() retourneert string ipv boolean
+verwacht resultaat: '' , omzet str-->boolean + melding omzetting
+pass/fail:
+opmerkingen:
+
+
+TEST4
+
+omschrijving: knipt() krijgt verkeerde input
+verwacht resultaat: test inhoud input op geldigheid(is_dna() gebruiken), melding wannneer ongeldig, programma gaat door als geldig
+pass/fail: 
+opmerkingen:
+
+
+TEST5
+
+omschrijving: input in functie verwisselt   (??)
+
+
+ 
