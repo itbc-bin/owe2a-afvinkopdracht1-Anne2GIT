@@ -9,14 +9,18 @@
 
 
 def main(): 
-    bestand = open("Alpacaklein.fa") # Voer hier de bestandsnaam van het juiste bestand in, of hernoem je bestand
-    
+    try:
+        bestand = open("Alpacaklein.fa") # Voer hier de bestandsnaam van het juiste bestand in, of hernoem je bestand
+    except IOError:
+        print("File not found. Make sure the file is in the same location as your program.")
+        return
     """
     Hier onder vind je de aanroep van de lees_inhoud functie, die gebruikt maakt van de bestand variabele als argument.
     De resultaten van de functie, de lijst met headers en de lijst met sequenties, sla je op deze manier op in twee losse resultaten.
     """
+        
     headers, seqs = lees_inhoud(bestand) 
-  
+   
     zoekwoord = input("Geef een zoekterm op: ")
     for element in headers:
         if zoekwoord in element:
