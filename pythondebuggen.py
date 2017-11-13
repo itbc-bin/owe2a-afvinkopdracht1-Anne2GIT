@@ -7,14 +7,8 @@
 # Opmerking: Het alpaca bestand is erg groot! Neem eerst een klein proefstukje van het bestand, met 5 tot 10 fasta's.
 # Ga je runnen met het echte bestand, geef je programma dan even de tijd.
 
-#inhoud = bestand.readlines()
-    #print(inhoud) #inhoud klopt! 
-    #lees_inhoud(bestand)
 
-
-'Het programma begon met draaien om 13:24 en onderbrak ik om 13:33.'
-
-def main(): ### bestand = open("Alpacaklein.fa", "r")
+def main(): 
     bestand = open("Alpacaklein.fa") # Voer hier de bestandsnaam van het juiste bestand in, of hernoem je bestand
     
     """
@@ -22,14 +16,12 @@ def main(): ### bestand = open("Alpacaklein.fa", "r")
     De resultaten van de functie, de lijst met headers en de lijst met sequenties, sla je op deze manier op in twee losse resultaten.
     """
     headers, seqs = lees_inhoud(bestand) 
-    #print(seqs)       
-    #print(headers)
   
     zoekwoord = input("Geef een zoekterm op: ")
     for element in headers:
         if zoekwoord in element:
             if zoekwoord != "":
-                print(element)  # <-- of de regel weergeven
+                print(element)  
     for element in seqs:      
         if zoekwoord in element:
             if zoekwoord != "":
@@ -39,7 +31,6 @@ def main(): ### bestand = open("Alpacaklein.fa", "r")
     count = -1
     for element in seqs:
         count += 1
-        #print(count)
         print(headers[count])
         print(is_dna(element))  # of in 1 keer
 
@@ -55,16 +46,6 @@ Hieronder vind je de return nodig om deze twee lijsten op te leveren ## SUBLIJST
   
     
 def lees_inhoud(bestands_naam):
-    #bestand = open(bestands_naam, "r")
-    
-    import os
-    import re
-
-    #in_file=bestands_naam.readlines()      Snap niks van de commando's, maar welvwat het
-    #dir,file=os.path.split(str(in_file))   zou moeten doen, maar was uiteindelijk niet
-    #temp = os.path.join(dir,output)        nodig voor dit stukje code! De code beneden
-    #out_file=open(temp,'w')                is die van Biopython, of iets vergelijkbaars
-
     sequentie= ""
     headers= []
     seqs= []
@@ -73,7 +54,7 @@ def lees_inhoud(bestands_naam):
 
         regel = regel.strip()
         for i in regel:
-            if i == '>':               # regel.startswith(">") kan ook
+            if i == '>':               
                 headers.append(regel)
                 if sequentie:
                     seqs.append("".join(sequentie)) ## blijkbaar sneller dan .append,
@@ -103,10 +84,10 @@ def is_dna(seq):
             if ch in ["A", "T", "C", "G"]: ## wil dat het true print boven/onder sequentie 
                 nuccount += 1
         if nuccount == len(element):  #betekent alle nucleotiden a, t, c of g zijn
-            return True #print("True. Het is DNA.")
+            return True 
         else:
             print(nuccount, len(element))
-            return False #print("False. Het is geen DNA.")
+            return False 
 
     
 """
@@ -119,21 +100,20 @@ def knipt(seq, header):
     
     enzymen = open("enzymen.txt","r")
     elementcount = -1
-    matchlijst = [] #(boven) geeft nu voor alle3 dezelfde 3
+    matchlijst = [] 
     frgmntlijst = []
     enzlijst = []
-    for element in seq:     # met seq[0: ] blijft enzymen van de 1e voor allemaal
-        sublijstmatch = []  ##hier geeft de matchlijst ook geen inhoud,  of gaat programma niet eens verder
-        elementcount += 1   ## IN element: eiwitten testen  met forloop!
+    for element in seq:     
+        sublijstmatch = []  
+        elementcount += 1   
         for regel in enzymen:                   #vanaf hier uit forloop element--> alleen laatste doornemen
             regel = regel.replace("^", "")      #vanaf hier in de forloop element-->alleen eerste doornemen
             enz, frgmnt = regel.split()
             frgmntlijst.append(frgmnt)
             enzlijst.append(enz)
-        #print(len(frgmntlijst), frgmntlijst)   #zijn even lang
-        #print(len(enzlijst), enzlijst)
+
         for x in range(len(frgmntlijst)):
-            if frgmntlijst[x] in element:       ## geeft voor de sequenties dezelfde enzymen aan, die van 1e!
+            if frgmntlijst[x] in element:       
                 sublijstmatch.append(enzlijst[x]) 
         matchlijst.append(sublijstmatch)
 
