@@ -2,24 +2,24 @@ TEST1
 
 omschrijving: Het programma starten zonder dat het bestand aanwezig is
 verwacht resultaat: nette afhandeling error met melding dat het bestand afwezig is
-pass/fail:  
-opmerkingen: "file not found. make sure the file is in the same location as your program." stopt programma
+pass/fail: fail(legt stil)
+opmerkingen: "file not found. make sure the file is in the same location as your program." stopt functie-->programma
 
 
 TEST2
 
 omschrijving: Het bestand is in ongeldig formaat.
-verwacht resultaat: test of headers in bestand zijn, zo niet: stopt functie
-pass/fail: fail
+verwacht resultaat: test of er evenveel ">" zijn als elementen in de lijst headers, geeft een typeerror aan in main(), in main legt ie het programma stil met een try/except structuur.
+pass/fail: fail(legt stil)
 opmerkingen: zonder try/except structuur
 
 
 TEST3
 
 omschrijving: de functie is_dna() retourneert string ipv boolean
-verwacht resultaat: omzet str-->boolean
-pass/fail: pass
-opmerkingen:geen aan de gebruiker. test voor "True"/"False" en True/False. 
+verwacht resultaat: accepteert zowel str als boolean(kon er geen error bij krijgen)
+pass/fail: pass 
+opmerkingen:geen aan de gebruiker, geen try/except structuur
 
 
 TEST4

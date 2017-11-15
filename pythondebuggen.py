@@ -12,9 +12,11 @@ def main():
     Hier onder vind je de aanroep van de lees_inhoud functie, die gebruikt maakt van de bestand variabele als argument.
     De resultaten van de functie, de lijst met headers en de lijst met sequenties, sla je op deze manier op in twee losse resultaten.
     """
-        
-    headers, seqs = lees_inhoud(bestand) 
-   
+    try:
+        headers, seqs = lees_inhoud(bestand) 
+    except TypeError:
+        print("The file in not in FASTA format. Make sure it is before starting the program again.")
+        return
     zoekwoord = input("Geef een zoekterm op: ")
     if zoekwoord != "":
         for element in headers:
@@ -64,52 +66,41 @@ def lees_inhoud(bestands_naam):
     sequentie= ""
     headers= []
     seqs= []
-    #if ">" not in bestands_naam:
-        #print("The file in not in FASTA format. Make sure it is before starting the program again.")
-        #return
+    count = 0
     
-    #try:
-    #count = 0 
+    
     for regel in bestands_naam:
-
+        
         regel = regel.strip()
         waar = is_dna(regel)
         if waar =="False" or waar == False:
             headers.append(regel)
-        for i in regel:
             
-            if i == ">":# or not all([i==i.upper]):
-                headers.append(regel)
+            #for i in regel:
+                #if i == ">":
+                    #headers.append(regel)
                                
-                if sequentie:
-                    seqs.append("".join(sequentie)) ## blijkbaar sneller dan .append,
-                    sequentie = ""                  ## handiger bij grote bestanden
-                break
-            else:
-                regel = regel.upper()
+            if sequentie:
+                seqs.append("".join(sequentie)) 
+                sequentie = ""                  
+                #break
+        else:
+            regel = regel.upper()
             
         if all([k==k.upper() for k in regel]):
             sequentie = sequentie + regel
+        if ">" in regel:
+            count += 1
     if sequentie:
         seqs.append("".join(sequentie))
-    #print(count, len(seqs), len(headers)) # 1header minder is daardoor ook sequentie minder
-    #if count != len(seqs):
-        #print("File is not in fasta format. Make sure it is before you start the program again.")
-        #return
-    print(len(headers), len(seqs))
+    
+    #print(count, len(headers))
+    if count < len(headers):        
+        return
+    
     return headers, seqs
-    #except count != len(seqs):
-        #print("File is not in fasta format. Make sure it is before you start the program again.")
-'''if regel.startswith(">"):
-            headers.append(regel)
-        
-        for i in regel:
-            if i in range(0,9):
-                if not regel.startswith(">"): 
-                    headers.append(regel)
-                    count += 1'''
 
-
+    
 """
 Deze functie bepaalt of de sequentie (een element uit seqs) DNA is.
 Indien ja, return True
@@ -139,34 +130,33 @@ Hiervoor mag je kiezen wat je returnt, of wellicht wil je alleen maar printjes m
 def knipt(seq, header):
     
     enzymen = open("enzymen.txt","r")
-    try:
-        elementcount = -1
-        matchlijst = [] 
-        frgmntlijst = []
-        enzlijst = []
-        for element in seq:     
-            sublijstmatch = []  
-            elementcount += 1   
-            for regel in enzymen:                   
-                regel = regel.replace("^", "")      
-                enz, frgmnt = regel.split()
-                test = is_dna(frgmnt)
-                if test:
-                    frgmntlijst.append(frgmnt)
-                    enzlijst.append(enz)
-                else:
-                    print("The list of enzyms is faulty. Check it before starting the program again")
-                    return
+    
+    elementcount = -1
+    matchlijst = [] 
+    frgmntlijst = []
+    enzlijst = []
+    for element in seq:     
+        sublijstmatch = []  
+        elementcount += 1   
+        for regel in enzymen:                   
+            regel = regel.replace("^", "")      
+            enz, frgmnt = regel.split()
+            test = is_dna(frgmnt)
+            if test:
+                frgmntlijst.append(frgmnt)
+                enzlijst.append(enz)
+            else:
+                print("The list of enzyms is faulty. Check it before starting the program again")
+                return
 
-            for x in range(len(frgmntlijst)):
-                if frgmntlijst[x] in element:       
-                    sublijstmatch.append(enzlijst[x]) 
-            matchlijst.append(sublijstmatch)
-            print(elementcount, len(header))
+        for x in range(len(frgmntlijst)):
+            if frgmntlijst[x] in element:       
+                sublijstmatch.append(enzlijst[x]) 
+        matchlijst.append(sublijstmatch)
+        #print(elementcount, len(header))
 
-            print(80*"-")
-            print("Matches restrictieenzymen", header[elementcount], ":", matchlijst[elementcount])                                                              #print(enz, frgmnt) # komma = met spatie, plus = zonder spatie
+        print(80*"-")
+        print("Matches restrictieenzymen", header[elementcount], ":", matchlijst[elementcount])                                                              #print(enz, frgmnt) # komma = met spatie, plus = zonder spatie
 
-    except IndexError:
-        print()
+    
 main()
