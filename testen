@@ -3,36 +3,38 @@ TEST1
 omschrijving: Het programma starten zonder dat het bestand aanwezig is
 verwacht resultaat: nette afhandeling error met melding dat het bestand afwezig is
 pass/fail:  
-opmerkingen: 
+opmerkingen: "file not found. make sure the file is in the same location as your program." stopt programma
 
 
 TEST2
 
 omschrijving: Het bestand is in ongeldig formaat.
-verwacht resultaat: nette afhandeling error met melding dat het bestand een ongeldig formaat heeft.
-pass/fail: 
-opmerkingen:
+verwacht resultaat: test of headers in bestand zijn, zo niet: stopt functie
+pass/fail: fail
+opmerkingen: zonder try/except structuur
 
 
 TEST3
 
 omschrijving: de functie is_dna() retourneert string ipv boolean
-verwacht resultaat: '' , omzet str-->boolean + melding omzetting
-pass/fail:
-opmerkingen:
+verwacht resultaat: omzet str-->boolean
+pass/fail: pass
+opmerkingen:geen aan de gebruiker. test voor "True"/"False" en True/False. 
 
 
 TEST4
 
-omschrijving: knipt() krijgt verkeerde input
-verwacht resultaat: test inhoud input op geldigheid(is_dna() gebruiken), melding wannneer ongeldig, programma gaat door als geldig
-pass/fail: 
-opmerkingen:
+omschrijving: in knipt() enzymen bestand geen DNA
+verwacht resultaat: test inhoud enzymbestand op geldigheid(is_dna() gebruiken), stopt functie als ongeldig
+pass/fail: fail
+opmerkingen: omleid zonder try/except structuur, "list of enzyms is faulty. check it before starting program again." stopt functie
 
 
 TEST5
 
-omschrijving: input in functie verwisselt   (??)
-
+omschrijving: headers&sequenties verkeerd ingelezen-->lijsten ongelijk
+verwacht resultaat: melding lijsten ongelijk, verwijzing locatie van fout, stopt programma
+pass/fail: fail(stopt main(functie) en dus programma)
+opmerkingen: "lijsten niet dezelfde lengtes, controleer lees_inhoud() op fouten" stopt functie->programma
 
  
