@@ -24,10 +24,15 @@ opmerkingen:geen aan de gebruiker, geen try/except structuur
 
 TEST4
 
-omschrijving: in knipt() enzymen bestand geen DNA
+omschrijving: probeert inhoud van main() tot de gebruiker een keyboard interruption geeft
+verwacht resultaat: stopt programma met bericht dat de gebruiker het programma zijn gang moet laten gaan
+pass/fail: fail
+opmerkingen: "do not interfere, have patience""start program again"
+
+((omschrijving: in knipt() enzymen bestand geen DNA
 verwacht resultaat: test inhoud enzymbestand op geldigheid(is_dna() gebruiken), stopt functie als ongeldig
 pass/fail: fail
-opmerkingen: omleid zonder try/except structuur, "list of enzyms is faulty. check it before starting program again." stopt functie
+opmerkingen: omleid zonder try/except structuur, "list of enzyms is faulty. check it before starting program again." stopt functie))
 
 
 TEST5

@@ -4,54 +4,59 @@
 
 def main(): 
     try:
-        bestand = open("Alpacaklein.fa") # Voer hier de bestandsnaam van het juiste bestand in, of hernoem je bestand
-    except IOError:
-        print("File not found. Make sure the file is in the same location as your program.")
-        return
-    """
-    Hier onder vind je de aanroep van de lees_inhoud functie, die gebruikt maakt van de bestand variabele als argument.
-    De resultaten van de functie, de lijst met headers en de lijst met sequenties, sla je op deze manier op in twee losse resultaten.
-    """
-    try:
-        headers, seqs = lees_inhoud(bestand) 
-    except TypeError:
-        print("The file in not in FASTA format. Make sure it is before starting the program again.")
-        return
-    zoekwoord = input("Geef een zoekterm op: ")
-    if zoekwoord != "":
-        for element in headers:
-            if zoekwoord in element:
-                print(element)  
-        for element in seqs:      
-            if zoekwoord in element:
-                print(element)
-    print()
+        try:
+            bestand = open("Alpacaklein.fa") # Voer hier de bestandsnaam van het juiste bestand in, of hernoem je bestand
+        except IOError:
+            print("File not found. Make sure the file is in the same location as your program.")
+            return
+        """
+        Hier onder vind je de aanroep van de lees_inhoud functie, die gebruikt maakt van de bestand variabele als argument.
+        De resultaten van de functie, de lijst met headers en de lijst met sequenties, sla je op deze manier op in twee losse resultaten.
+        """
+        try:
+            headers, seqs = lees_inhoud(bestand) 
+        except TypeError:
+            print("The file in not in FASTA format. Make sure it is before starting the program again.")
+            return
+        zoekwoord = input("Geef een zoekterm op: ")
+        if zoekwoord != "":
+            for element in headers:
+                if zoekwoord in element:
+                    print(element)  
+            for element in seqs:      
+                if zoekwoord in element:
+                    print(element)
+        print()
 
-    try:         
-        count = -1
-        truecount = 0
-        falselijst = []
-    
-        for element in seqs:
-            count += 1
-            
-            DNA = is_dna(element)
-            if DNA == True or DNA == "True":
-                truecount += 1
-            
-            if DNA == "False" or DNA == False:
-                falselijst.append(headers[count])
+        try:         
+            count = -1
+            truecount = 0
+            falselijst = []
+        
+            for element in seqs:
+                count += 1
                 
-        if truecount == len(seqs):
-            print("All sequences are DNA.")
-        else:
-            print("Not all sequences are DNA. These are not recognised as DNA: ")
-            for element in falselijst:
-                print(element)
-    except IndexError:
-        print("The lists don't have the samen length. Check lees_inhoud() for faults.")
+                DNA = is_dna(element)
+                if DNA == True or DNA == "True":
+                    truecount += 1
+                
+                if DNA == "False" or DNA == False:
+                    falselijst.append(headers[count])
+                    
+            if truecount == len(seqs):
+                print("All sequences are DNA.")
+            else:
+                print("Not all sequences are DNA. These are not recognised as DNA: ")
+                for element in falselijst:
+                    print(element)
+        except IndexError:
+            print("The lists don't have the samen length. Check lees_inhoud() for faults.")
+            return
+        knipt(seqs, headers)
+    except KeyboardInterrupt:
+        print("Please do not interfere with the program. Have some patience!")
+        print("Start the program again.")
         return
-    knipt(seqs, headers)
     
 """
 Schrijf hier je eigen code die het bestand inleest en deze splitst in headers en sequenties.
@@ -96,7 +101,7 @@ def lees_inhoud(bestands_naam):
     
     #print(count, len(headers))
     if count < len(headers):        
-        return
+        raise TypeError
     
     return headers, seqs
 
